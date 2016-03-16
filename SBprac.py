@@ -7,25 +7,25 @@ app = flask.Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
-@app.route('/profile')
+@app.route('/profile/')
 def profile():
     return flask.render_template('profile.html')
 
-@app.route('/lost')
+@app.route('/lost/')
 def lost():
     return flask.render_template('lost.html')
 
-@app.route('/found')
+@app.route('/found/')
 def found():
     return flask.render_template('found.html')
 
-@app.route('/searchFound')
+@app.route('/searchFound/')
 def searchFound():
     name = flask.request.args['name']
     #search the database
     return flask.redirect(flask.url_for('found'), code=303)
 
-@app.route('/searchLost')
+@app.route('/searchLost/')
 def searchLost():
     name = flask.request.args['name']
     # search the database
