@@ -17,7 +17,7 @@
 
         <ul class="pure-menu-list">
             {% if g.user %}
-            <li class="pure-menu-item"><a href="/profile/" class="pure-menu-link">Profile</a></li>
+            <li class="pure-menu-item"><a href="/profile/{{ g.user.login }}" class="pure-menu-link">Profile</a></li>
             {% else %}
             <li class="pure-menu-item pure-menu-selected"><a href="/login" class="pure-menu-link">Join/Login</a></li>
             {% endif %}
