@@ -48,3 +48,41 @@ def add_post():
 
     db.session.commit()
     return flask.redirect(flask.url_for('lost'), code=303)
+
+@app.route('/login')
+def login_form():
+    return flask.render_template('login.html')
+
+@app.route('/create_user', methods=['POST'])
+def create_user():
+    login = flask.request.form['user']
+    password = flask.request.form['password']
+
+    if password != flask.request.form['confirm']:
+        # add states to say bad password match
+        print("Not a match")
+
+    #check if login is not longer
+    if len(login)> 20:
+        # add states to say invalid user name
+        print("Too long of a username")
+
+    existing = models.User.query.filter_by(login=login).first()
+
+    if existing is not None:
+        #return user already exists
+        print("soz, this exists")
+
+    user = models.User()
+    user.login = login
+
+    #change password to some hash kind
+    user.password = password
+    print('here')
+    db.session.add(user)
+    print('here2')
+    db.session.commit()
+    print('here3')
+    flask.session['auth_user'] = user.id
+
+    return flask.render_template('login.html')
