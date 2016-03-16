@@ -110,3 +110,8 @@ def create_user():
     flask.session['auth_user'] = user.id
 
     return flask.redirect(flask.url_for('profile', name=user.login), code=303)
+
+@app.route('/logout')
+def handle_logout():
+    del flask.session['auth_user']
+    return flask.redirect('/')
