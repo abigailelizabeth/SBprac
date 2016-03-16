@@ -75,7 +75,7 @@ def handle_login():
             flask.session['auth_user'] = user.id
             return flask.redirect(flask.url_for('profile', name=user.login), code=303)
 
-    return flask.render_template('login.html')
+    return flask.render_template('login.html', state='bad')
 
 @app.route('/create_user', methods=['POST'])
 def create_user():
@@ -84,29 +84,26 @@ def create_user():
 
     if password != flask.request.form['confirm']:
         # add states to say bad password match
-        print("Not a match")
+        return flask.render_template('login.html', state='password-mismatch')
 
     #check if login is not longer
     if len(login)> 20:
         # add states to say invalid user name
-        print("Too long of a username")
+        return flask.render_template('login.html', state='bad-username')
 
     existing = models.User.query.filter_by(login=login).first()
 
     if existing is not None:
         #return user already exists
-        print("soz, this exists")
+        return flask.render_template('login.html', state='username-used')
 
     user = models.User()
     user.login = login
 
     #change password to some hash kind
     user.password = password
-    print('here')
     db.session.add(user)
-    print('here2')
     db.session.commit()
-    print('here3')
     flask.session['auth_user'] = user.id
 
     return flask.redirect(flask.url_for('profile', name=user.login), code=303)
