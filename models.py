@@ -1,9 +1,11 @@
 from init import db, app
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    firstName = db.Column(db.String(15))
-    lastName = db.Column(db.String(15))
+    login = db.Column(db.String(20))
+    password = db.Column(db.String(20))
+
 
 class LostPosting(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
