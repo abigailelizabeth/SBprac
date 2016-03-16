@@ -12,7 +12,8 @@ def profile():
 
 @app.route('/lost/')
 def lost():
-    return flask.render_template('lost.html')
+    lostPostings = models.LostPosting.query.all()
+    return flask.render_template('lost.html', lostPostings=lostPostings)
 
 @app.route('/found/')
 def found():
@@ -28,4 +29,22 @@ def searchFound():
 def searchLost():
     name = flask.request.args['name']
     # search the database
+    return flask.redirect(flask.url_for('lost'), code=303)
+
+@app.route('/lost/post', methods=['POST'])
+def add_post():
+    name = flask.request.form['name']
+    description = flask.request.form['description']
+
+    #create a new post
+    posting = models.LostPosting()
+
+    #set its properties
+    posting.name = name
+    posting.description = description
+
+    #add it to the database
+    db.session.add(posting)
+
+    db.session.commit()
     return flask.redirect(flask.url_for('lost'), code=303)
