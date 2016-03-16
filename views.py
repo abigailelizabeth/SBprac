@@ -108,6 +108,17 @@ def create_user():
 
     return flask.redirect(flask.url_for('profile', name=user.login), code=303)
 
+# @app.route('/profile/editProfile', methods=['POST'])
+# def editProfile():
+#     fullName = flask.request.form['fullname']
+#     newLogin = flask.request.form['name']
+#     print(newLogin)
+#     #add conditional tests to see if valid username
+#     if fullName is not None:
+#         flask.g.user.name = fullName
+#     if newLogin is not None:
+#         flask.g.user.login = newLogin
+#     return flask.redirect(flask.url_for('profile', name=flask.g.user.login))
 @app.route('/logout')
 def handle_logout():
     del flask.session['auth_user']
