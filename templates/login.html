@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" action="/create_user" class = "pure-form pure-form-stacked">
+    <input type="hidden" name="url" value="{{ request.args.url }}">
+    <label for="create-user">Username</label>
+    <input type="text" name="user" id="login-user" maxlength="20">
+    <label for="create-password">Password</label>
+    <input type="password" name="password" id="create-password">
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" name="confirm" id="confirm-password">
+    <button type="submit" class="pure-button">Create Account</button>
+</form>
+{% endblock %}
