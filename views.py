@@ -2,13 +2,24 @@ from init import app, db
 import flask
 import models
 
+@app.before_request
+def setup_user():
+    if 'auth_user' in flask.session:
+        user = models.User.query.get(flask.session['auth_user'])
+        #save the user in flask., which is a set of globals for this request
+        flask.g.user = user
 @app.route('/')
 def index():
     return flask.render_template('index.html')
 
-@app.route('/profile/')
-def profile():
-    return flask.render_template('profile.html')
+@app.route('/profile/<name>')
+def profile(name):
+    #pass in id to personalize user
+    user = models.User.query.filter_by(login=name).first()
+    if user is None:
+        flask.abort(404)
+
+    return flask.render_template('profile.html', user=user)
 
 @app.route('/lost/')
 def lost():
@@ -53,6 +64,19 @@ def add_post():
 def login_form():
     return flask.render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def handle_login():
+    login = flask.request.form['user']
+    password = flask.request.form['password']
+    user = models.User.query.filter_by(login=login).first()
+    if user is not None:
+        #change this to encrypting password
+        if password== user.password:
+            flask.session['auth_user'] = user.id
+            return flask.redirect(flask.url_for('profile', name=user.login), code=303)
+
+    return flask.render_template('login.html')
+
 @app.route('/create_user', methods=['POST'])
 def create_user():
     login = flask.request.form['user']
@@ -85,4 +109,4 @@ def create_user():
     print('here3')
     flask.session['auth_user'] = user.id
 
-    return flask.render_template('login.html')
+    return flask.redirect(flask.url_for('profile', name=user.login), code=303)

@@ -16,7 +16,12 @@
             <a class="pure-menu-heading" href="/">BT</a>
 
             <ul class="pure-menu-list">
+                {% if g.user %}
                 <li class="pure-menu-item"><a href="/profile/" class="pure-menu-link">Profile</a></li>
+                {% else %}
+                <li class="pure-menu-item"><a href="/login" class="pure-menu-link">Join/Login</a></li>
+                {% endif %}
+
                 <li class="pure-menu-item"><a href="/lost/" class="pure-menu-link">Lost</a></li>
                 <li class="pure-menu-item"><a href="/found/" class="pure-menu-link">Found</a></li>
 
@@ -25,6 +30,11 @@
                 </li>
 
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+                {% if g.user %}
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log Out</a></li>
+                {% endif %}
+
+
             </ul>
         </div>
     </div>

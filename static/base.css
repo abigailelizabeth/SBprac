@@ -200,7 +200,9 @@ small screens.
             margin-top: 0.6em;
         }
 
-
+.connect-with{
+    margin-top: 1em;
+}
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 
 /*
