@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BackTrack{% endblock %}</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="/static/base.css">
+    {% block cssPath %}{% endblock %}
 </head>
 <body class="pure-img-responsive">
 
@@ -14,9 +16,9 @@
             <a class="pure-menu-heading" href="/">BT</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="/profile" class="pure-menu-link">Profile</a></li>
-                <li class="pure-menu-item"><a href="/lost" class="pure-menu-link">Lost</a></li>
-                <li class="pure-menu-item"><a href="/found" class="pure-menu-link">Found</a></li>
+                <li class="pure-menu-item"><a href="/profile/" class="pure-menu-link">Profile</a></li>
+                <li class="pure-menu-item"><a href="/lost/" class="pure-menu-link">Lost</a></li>
+                <li class="pure-menu-item"><a href="/found/" class="pure-menu-link">Found</a></li>
 
                 <li class="pure-menu-item" class="menu-item-divided pure-menu-selected">
                     <a href="#" class="pure-menu-link">Services</a>
