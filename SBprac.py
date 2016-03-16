@@ -1,7 +1,5 @@
-import flask
-
-app = flask.Flask(__name__)
-
+from init import app
+import views
 
 
 if __name__ == '__main__':
